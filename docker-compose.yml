@@ -1,0 +1,39 @@
+services:
+
+  app:
+    build: .
+
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - postgres
+
+    networks:
+      - s-network
+
+  postgres:
+    image: postgres:latest
+
+    environment:
+      POSTGRES_USER: Mahindra
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: job-app
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+    networks:
+      - s-network
+
+
+volumes:
+  postgres-data:
+
+
+networks:
+  s-network:
+    driver: bridge
